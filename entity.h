@@ -15,7 +15,7 @@ protected:
   int _turns=2;
 
 public:
-
+  
   // --- Constructor --- 
   Entity(std::string name, float hp, int lvl, float atk, float def) {
 
