@@ -9,8 +9,7 @@ void create(char hOe, string name) {
 
 void fshow() {
   AdminInterface * interface = INTERFACE;
-  // interface->showAllEntities();
-  interface->showAllEntities_Dist();
+  interface->showAllEntities();
 }
 
 string finput() {

@@ -7,7 +7,6 @@ class AdminInterface {
 private:
   // --- Variables --- 
   std::vector<Entity*> _entityList;
-  std::unordered_map<u16, Entity*> _entityDict;
 
   u32 _id = 0;
 
@@ -50,9 +49,8 @@ public:
         case 'e': entity = createEnemy(_id, name); break;
         default: throw std::invalid_argument("Invalid entity type!");
       }
-      _entityDict.insert({entity->getId(), entity});
       _id++;
-      // _entityList.push_back(entity);
+      _entityList.push_back(entity);
 
     } catch (const string msg) {
       std::cout << "Error : " + msg << std::endl;
@@ -62,7 +60,7 @@ public:
   // erase entity from entity list method
 
   // --- Getters ---
-  std::vector<Entity*> getEntityList() {
+  auto getEntityList() {
     return _entityList;
   }
 
@@ -79,34 +77,31 @@ public:
 
   // -- Show entities ---
   
-  // void showAllEntities() {
-  //   std::cout << std::endl;
-  //   std::cout << "#--- Entity List ---#" << std::endl;
-
-  //   size_t listSize = _entityList.size();
-  //   for (int i = 0; i < listSize; ++i) {
-  //     if (i != listSize - 1) {
-  //        std::cout << _entityList[i]->getInfo() << std::endl;
-  //        std::cout << std::endl;
-  //     } 
-  //     else {
-  //        std::cout << _entityList[i]->getInfo() << std::endl;
-  //     }
-  //   }
-
-  //   std::cout << "#-------------------#" << std::endl;
-  //   std::cout << std::endl;
-  // }
-
-  void showAllEntities_Dist() {
+  void showAllEntities() {
     std::cout << std::endl;
     std::cout << "#--- Entity List ---#" << std::endl;
 
-    for (const auto [key , value] : _entityDict) {
-      std::cout << value->getType() << "\t" << value->getName() << std::endl;
+    size_t listSize = _entityList.size();
+    // for (int i = 0; i < listSize; ++i) {
+    //   if (i != listSize - 1) {
+    //      std::cout << _entityList[i]->getInfo() << std::endl;
+    //      std::cout << std::endl;
+    //   } 
+    //   else {
+    //      std::cout << _entityList[i]->getInfo() << std::endl;
+    //   }
+    // }
+    
+    for (Entity* entity : _entityList) {
+      std::cout << entity->getId() << ":\t" << entity->getName() << " (" << entity->getType() << ')' << std::endl;
     }
 
-    std::cout << "#-------------------#" << std::endl;
-    std::cout << std::endl;
+  std::cout << "#-------------------#" << std::endl;
+  std::cout << std::endl;
   }
+
+  // void showStats(string name) {
+  //   for (Entity* entity : _entityList) {
+  //     }
+  // }
 };
