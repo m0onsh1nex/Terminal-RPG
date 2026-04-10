@@ -2,14 +2,14 @@
 #include "entity.h"
 #include "hero.h"
 #include "func.cpp"
-
+#include <exception>
+#include <iostream>
+#include <stdexcept>
 class AdminInterface {
 private:
   // --- Variables --- 
   std::vector<Entity*> _entityList;
-
   u32 _id = 0;
-
 
   // -- Methods --- 
   Entity* createHero(u32 id, string name) {
@@ -51,9 +51,10 @@ public:
       }
       _id++;
       _entityList.push_back(entity);
-
-    } catch (const string msg) {
-      std::cout << "Error : " + msg << std::endl;
+      return;
+    } catch (const std::exception &msg) {
+      std::cerr << "Error : " << msg.what() << std::endl;
+      return;
     }
   }
 
@@ -71,7 +72,7 @@ public:
           return entity;
         }
       }
-    std::cout << "Entity with name  '" + name + "' does not found" << std:: endl;
+    std::cout << "Entity with name  '" + name + "' does not found" << std::endl;
     return nullptr;
   }
 
@@ -80,18 +81,7 @@ public:
   void showAllEntities() {
     std::cout << std::endl;
     std::cout << "#--- Entity List ---#" << std::endl;
-
-    size_t listSize = _entityList.size();
-    // for (int i = 0; i < listSize; ++i) {
-    //   if (i != listSize - 1) {
-    //      std::cout << _entityList[i]->getInfo() << std::endl;
-    //      std::cout << std::endl;
-    //   } 
-    //   else {
-    //      std::cout << _entityList[i]->getInfo() << std::endl;
-    //   }
-    // }
-    
+   
     for (Entity* entity : _entityList) {
       std::cout << entity->getId() << ":\t" << entity->getName() << " (" << entity->getType() << ')' << std::endl;
     }
@@ -100,8 +90,18 @@ public:
   std::cout << std::endl;
   }
 
-  // void showStats(string name) {
-  //   for (Entity* entity : _entityList) {
-  //     }
-  // }
+  void showStats(string name) {
+
+    for (Entity* entity : _entityList) {
+      if (entity->getName() == name) {
+        std::cout << "#--- Entity Stats ---#" << std::endl;
+        std::cout << entity->getInfo() << std::endl;
+        std::cout << "#--------------------#" << std::endl;
+        return;
+      }
+    }
+
+    throw std::invalid_argument("Entity with name '" + name + "' not found");
+    return;
+  }
 };

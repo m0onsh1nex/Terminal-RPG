@@ -1,11 +1,30 @@
 #include"config.h"
 #include "adminInterface.h"
+#include <exception>
 
 AdminInterface * INTERFACE = new AdminInterface();
+
+void fhelp() {
+  std::cout << "To stop program: '#'" << std::endl;
+  std::cout << "Create an entity: 'create'" << std::endl;
+  std::cout << "Show all entity: 'show'" << std::endl;
+  std::cout << "Show entity stats: 'stats'" << std::endl;
+}
 
 void create(char hOe, string name) {
   INTERFACE->createEntity(hOe, name);
 }
+
+void fstats(string input) {
+  try {
+    std::cout << "Entity name: ";
+    std::cin >> input; 
+    toLowerCase(input);
+    INTERFACE->showStats(input);
+  } catch (const std::exception &msg) {
+    std::cerr << "Error : " << msg.what() << std::endl;
+  }
+  }
 
 void fshow() {
   AdminInterface * interface = INTERFACE;
@@ -17,12 +36,6 @@ string finput() {
   std::cout << PATH;
   std::cin >> input;
   return input;
-}
-
-void fhelp() {
-  std::cout << "To stop program: '#'" << std::endl;
-  std::cout << "Create an entity: 'create'" << std::endl;
-  std::cout << "Show all entity: 'show'" << std::endl;
 }
 
 void fcreate(string &input) {
@@ -46,8 +59,8 @@ void fcreate(string &input) {
       else {
         throw std::invalid_argument("Undefined input");
       }
-    } catch(const string msg) {
-      std::cout << "Error: " << msg << std::endl;
+    } catch(const std::exception &msg) {
+      std::cerr << "Error : " << msg.what() << std::endl;
     }
 }
 

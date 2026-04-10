@@ -15,6 +15,7 @@ int main()
     if (input == "help") fhelp();
     if (input == "create") fcreate(input);
     if (input == "show") fshow();
+    if (input == "stats") fstats(input);
 
     // --- Game ---
     if (input == "start") StartGame();
