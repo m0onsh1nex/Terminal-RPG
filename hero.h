@@ -1,12 +1,12 @@
 #pragma once
 #include"entity.h"
-#include<stdexcept>
-#include<string>
 
 class Hero : public Entity {
 public:
   using Entity::Entity;
-  Hero(std::string name, int hp, int lvl, int atk, int def) : Entity(name, hp, lvl, atk, def) {}
+  Hero(u32 id, string name, int hp, int lvl, int atk, int def) : Entity(id, name, hp, lvl, atk, def) {
+    _type = "hero";
+  }
 
   // --- Overrides --- 
   

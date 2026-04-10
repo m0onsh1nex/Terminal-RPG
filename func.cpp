@@ -1,7 +1,6 @@
-#include <string>
-#include <algorithm>
+#include "config.h"
 
-void toLowerCase(std::string &str) {
+void toLowerCase(string &str) {
   std::transform(str.begin(), str.end(), str.begin(), [](unsigned char c){return std::tolower(c);});
 }
 

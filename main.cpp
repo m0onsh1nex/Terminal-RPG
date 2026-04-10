@@ -2,7 +2,7 @@
 
 int main() 
 {
-  std::string input = "";
+  string input = "";
   std::cout << "Type 'help' for show commands" << std::endl;
   std::cout << "To stop program: '#'" << std::endl;;
 

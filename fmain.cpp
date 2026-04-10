@@ -1,18 +1,20 @@
 #include"config.h"
+#include "adminInterface.h"
 
 AdminInterface * INTERFACE = new AdminInterface();
 
-void create(char hOe, std::string name) {
+void create(char hOe, string name) {
   INTERFACE->createEntity(hOe, name);
 }
 
 void fshow() {
   AdminInterface * interface = INTERFACE;
-  interface->showAllEntities();
+  // interface->showAllEntities();
+  interface->showAllEntities_Dist();
 }
 
-std::string finput() {
-  std::string input;
+string finput() {
+  string input;
   std::cout << PATH;
   std::cin >> input;
   return input;
@@ -24,12 +26,12 @@ void fhelp() {
   std::cout << "Show all entity: 'show'" << std::endl;
 }
 
-void fcreate(std::string &input) {
+void fcreate(string &input) {
   try {
     std::cout << "Choose 'Hero' or 'Enemy': ";
     std::cin >> input;
     toLowerCase(input);
-    std::string name;
+    string name;
       if (input == "hero") {
         std::cout << "Type hero name: ";
         std::cin >> name;
@@ -45,7 +47,7 @@ void fcreate(std::string &input) {
       else {
         throw std::invalid_argument("Undefined input");
       }
-    } catch(const std::string msg) {
+    } catch(const string msg) {
       std::cout << "Error: " << msg << std::endl;
     }
 }

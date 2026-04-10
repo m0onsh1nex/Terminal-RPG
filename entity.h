@@ -1,29 +1,29 @@
 #pragma once
-#include<iostream>
-#include<stdexcept>
-#include<string>
-#include<sstream>
+#include "config.h"
 
 class Entity {
 protected:
-  std::string _name;
+  string _type;
+  u32 _id;
+
+  string _name;
   int _health;
   int _maxhealth;
   int _level;
   int _attack;
   int _defence;
-  int _turns=2;
-
 public:
   
   // --- Constructor --- 
-  Entity(std::string name, float hp, int lvl, float atk, float def) {
+  Entity(u32 id, string name, float hp, int lvl, float atk, float def) {
+    _id = id;
 
     if (hp <= 0) throw std::invalid_argument("Invalid health\n");
     else {
       _health = hp;
       _maxhealth = hp;
     }
+
     if (lvl < 0) throw std::invalid_argument("Invalid level\n");
     else _level = lvl;
     
@@ -59,25 +59,37 @@ public:
   }
 
   // --- Getters --- 
-  std::string getName() const {
+  string getType() const {
+    return _type;
+  }
+
+  u32 getId() const {
+    return _id;
+  }
+
+  string getName() const {
     return _name;
   }
+
   int getHp() const {
     return _health;
   }
+
   int getLvl() const {
     return _level;
   }
+
   int getAtk() const {
     return _attack;
   }
+
   int getDef() const {
     return _defence;
   }
 
-  std::string getInfo() const {
+  string getInfo() const {
 
-      std::string info = 
+      string info = 
         "NAME:\t" + getName() + 
         "\nHP:\t" + std::to_string(getHp()) +
         "\nLVL:\t" + std::to_string(getLvl()) + 
