@@ -24,7 +24,7 @@ void fstats(string input) {
   } catch (const std::exception &msg) {
     std::cerr << "Error : " << msg.what() << std::endl;
   }
-  }
+}
 
 void fshow() {
   AdminInterface * interface = INTERFACE;
