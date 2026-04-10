@@ -3,7 +3,7 @@
 #include"hero.h"
 #include<vector>
 #include<string>
-
+#include"func.cpp"
 
 class AdminInterface {
 private:
@@ -37,20 +37,16 @@ public:
 
   // hOe = Hero Or Enemy
 
-  void createEntity(std::string hOe, std::string name) {
+  void createEntity(char hOe, std::string name) {
     try {
-      std::transform(hOe.begin(), hOe.end(), hOe.begin(), [](unsigned char c){return std::tolower(c);});
-      std::transform(name.begin(), name.end(), name.begin(), [](unsigned char c){return std::tolower(c);});
-
       Entity * entity;
 
-      if (hOe == "hero") {
-        entity = createHero(name);
-      } else {
-        entity = createEnemy(name);
+      switch (hOe) {
+      case 'h': entity = createHero(name); break;
+      case 'e': entity = createEnemy(name); break;
+      _entityList.push_back(entity);
       }
 
-      _entityList.push_back(entity);
     } catch (const std::string msg) {
       std::cout << "Error : " + msg << std::endl;
     }
@@ -64,7 +60,7 @@ public:
   }
 
   Entity* getEntity(std::string name) {
-      std::transform(name.begin(), name.end(), name.begin(), [](unsigned char c){return std::tolower(c);});
+    toLowerCase(name);
       for (Entity* entity : _entityList) {
         if (entity->getName() == name) {
           return entity;
@@ -76,8 +72,21 @@ public:
 
   // -- Show entities ---
   void showAllEntities() {
-    for(Entity*& entity : _entityList) {
-      std::cout << entity->getInfo() << std::endl;
+    std::cout << std::endl;
+    std::cout << "#--- Entity List ---#" << std::endl;
+
+    size_t listSize = _entityList.size();
+    for (int i = 0; i < listSize; ++i) {
+      if (i != listSize - 1) {
+         std::cout << _entityList[i]->getInfo() << std::endl;
+         std::cout << std::endl;
+      } 
+      else {
+         std::cout << _entityList[i]->getInfo() << std::endl;
+      }
     }
+
+    std::cout << "#-------------------#" << std::endl;
+    std::cout << std::endl;
   }
 };

@@ -31,7 +31,7 @@ public:
     else _attack = atk;
 
     if (def < 0) throw std::invalid_argument("Invalid defence\n");
-    else  _defence = def;
+    else _defence = def;
 
     if (name.empty()) throw std::invalid_argument("Invalid name\n");
     else _name = name;
@@ -76,15 +76,12 @@ public:
   }
 
   std::string getInfo() const {
-      std::ostringstream SSinfo; 
-      SSinfo << 
-        "NAME:\t" << getName() <<
-        "\nHP:\t" << getHp() << 
-        "\nLVL:\t" << getLvl() << 
-        "\nATK:\t" << getAtk() << 
-        "\nDEF:\t" << getDef() << 
-        "\n";
-      std::string info = SSinfo.str();
+
+      std::string info = 
+        "NAME:\t" + getName() + 
+        "\nHP:\t" + std::to_string(getHp()) +
+        "\nLVL:\t" + std::to_string(getLvl()) + 
+        "\nDEF:\t" + std::to_string(getDef());
       return info;
     }
 

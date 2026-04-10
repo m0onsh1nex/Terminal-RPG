@@ -1,0 +1,12 @@
+entity.h
+-Changed from ostringstream to string output
+
+main.cpp
+  Standartazied some functions
+  Added a path while cin
+  Rename:
+    -show() -> fshow()
+  Added:
+    -finput() path before cin
+    -fhelp() shows help info
+    -fcreate() creating entity
